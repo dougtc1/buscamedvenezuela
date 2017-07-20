@@ -1,0 +1,1 @@
+web: gunicorn mediapp.wsgi --log-file -

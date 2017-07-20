@@ -1,0 +1,165 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Inicio {% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="right_col" role="main"> 
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-md-6 col-md-offset-3">
+      <div class="control-group">&nbsp;</div>
+      <div class="row"><img src="/static/images/cebolla.png" style="width: 70%;" class="center-block" alt="HTML5 Icon"></div>
+      <div class="control-group">&nbsp;</div>
+      <div class="row text-center"> 
+        <h4>Este es un proyecto, creado por estudiantes de la Universidad Simon Bolivar, con el objetivo
+        de permitir la búsqueda de <b>tweets</b> sobre oferta y demanda de medicinas en <b>Twitter</b>.</h4>
+        <h4>Proyecto realizado con fines académicos.</h4>
+      </div>
+      <div class="control-group">&nbsp;</div>
+    </div>
+    <div class="clearfix"></div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+              <div class="clearfix"></div>
+                <div class="x_content">
+                  {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                      <h2><font color="red"><li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></font></h2>
+                      {% endfor %}
+                  </ul>
+                  {% endif %}
+                  <!-- modals -->
+
+                  <!-- Modal de oferta -->
+                  <button style="width:100%; height:100%; padding: 15px 15px 15px;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalOferta"><b>Deseo encontrar ofertas, donaciones o lugares donde conseguir medicinas</b></button>
+
+                  <div id="modalOferta" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Búsqueda de "oferta" en Tweets</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Escriba el nombre de medicina o componente activo que desea encontrar en tweets.</h4>
+                          <form type="get" class="col-md form-group" action="/app/tweetsOferta/">
+                            <div class="input-group">
+                              <input id="search_box" class="form-control" type="text" name="search_box" placeholder="Componente (ejemplo: acido acetilsalicilico) / Medicina (ejemplo: aspirina bayer)" required oninvalid="this.setCustomValidity('Por favor ingrese el nombre de una medicina o componente activo.')" oninput="setCustomValidity('')" autofocus="autofocus">
+                              <span class="input-group-btn">
+                                <button id="search_submit" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                              </span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          <button id="search_submit" type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Modal de oferta -->
+                  
+                  <br><div class="clearfix"></div><br>
+
+                  <!-- Modal de demanda -->
+
+                  <button style="width:100%; height:100%; padding: 15px 15px 15px;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalDemanda"><b>Deseo encontrar demandas, solicitudes u organizaciones que requieren medicinas</b></button>
+                  <div id="modalDemanda" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Búsqueda de "demanda" en Tweets</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Escriba el nombre de medicina o componente activo que desea encontrar en tweets.</h4>
+                          <form type="get" class="col-md form-group" action="/app/tweetsDemanda/">
+                            <div class="input-group">
+                              <input id="search_box" class="form-control" type="text" name="search_box" placeholder="Componente (ejemplo: acido acetilsalicilico) / Medicina (ejemplo: aspirina bayer)" required oninvalid="this.setCustomValidity('Por favor ingrese el nombre de una medicina o componente activo.')" oninput="setCustomValidity('')" autofocus="autofocus">
+                              <span class="input-group-btn">
+                                <button id="search_submit" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                              </span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          <button id="search_submit" type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Modal de demanda -->
+
+                  <br><div class="clearfix"></div><br>
+
+                  <!-- Modal de busqueda medicinas alternas -->
+
+                  <button style="width:100%; height:100%; padding: 15px 15px 15px;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalBuscar"><i class="fa fa-search fa-lg"></i><b> Deseo buscar las medicinas equivalentes a un medicamento</b></button>
+                  <div id="modalBuscar" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span></button>
+                          <h4 class="modal-title" id="myModalLabel"> Búsqueda de medicinas equivalentes (Familia de medicinas que comparten componente activo)</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Escriba el nombre de medicina o componente activo al cual desea encontrar su familia.</h4>
+                          <form type="get" class="col-md form-group" action="/app/search/">
+                            <div class="input-group">
+                              <input id="search_box" class="form-control" type="text" name="search_box" placeholder="Componente (ejemplo: acido acetilsalicilico) / Medicina (ejemplo: aspirina bayer)" required oninvalid="this.setCustomValidity('Por favor ingrese el nombre de una medicina o componente activo.')" oninput="setCustomValidity('')" autofocus="autofocus">
+                              <span class="input-group-btn">
+                                <button id="search_submit" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                              </span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          <button id="search_submit" type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Modal de busqueda de medicinas alternas -->
+                </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+{{ block.super}}
+<!-- Chart.js -->
+<script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- gauge.js -->
+<script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- Skycons -->
+<script src="/static/vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="/static/vendors/Flot/jquery.flot.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="/static/vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+{% endblock javascripts %}

@@ -1,0 +1,37 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Dashboard 1 {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="right_col" role="main">   
+  <div class="page-title">
+    <div class="title_left">
+      <h3> Lista de componentes activos</h3>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="clearfix"></div>
+        <div class="x_content">
+          {% if activo_list %}
+              <ul>
+              {% for componente in activo_list %}
+                  <li>{{ componente.componente }}</li>
+              {% endfor %}
+              </ul>
+          {% else %}
+              <p>No polls are available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

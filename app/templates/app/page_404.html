@@ -1,0 +1,46 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Page 404 {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block sidebar %}{% endblock sidebar %}
+
+{% block top_navigation %}{% endblock top_navigation %}
+
+{% block content %}
+  <div class="col-md-12">
+    <div class="col-middle">
+      <div class="text-center text-center">
+        <h1 class="error-number">404</h1>
+        <h3>Lo siento, no encontramos la medicina o componente activo que está buscando.</h3>
+        <p><h2>"{{erroneo}}" no es una medicina reconocida en nuestra base de datos.</h2><a href="#">Report this?</a>
+        </p>
+        <div class="mid_center">
+          <h2>Realice otra búsqueda en la base de datos</h2>
+          <form type="get" class="col-xs-12 form-group pull-right top_search" action="/app/search/">
+            <div class="input-group">
+              <input id="search_box" class="form-control" type="text" name="search_box" placeholder="Componente/Medicina" required oninvalid="this.setCustomValidity('Por favor ingrese el nombre de una medicina o componente activo.')" oninput="setCustomValidity('')">
+              <span class="input-group-btn">
+                <button id="search_submit" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <div class="clearfix"></div>
+          <br />
+          <br />
+          <br />
+          <h2><a href="/app/">Volver al inicio.</a></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block javascripts %}
+  {{ block.super }}
+{% endblock javascripts %}

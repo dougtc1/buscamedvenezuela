@@ -1,0 +1,97 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Inicio {% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+<style>
+  #tweetScroll {overflow:hidden; overflow-y:scroll;}
+</style>
+
+<div class="right_col" role="main">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Tipo de búsqueda realizada: "{{tipoBusqueda}}"</h3>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="clearfix"></div>
+          <div class="x_content">
+            {% if vacio %}
+              <div style="color: #FF0000;" class="col-md-offset-5 col-md-7 col-sm-offset-5 col-sm-3 col-xs-offset-4 col-xs-7">
+                <i class="fa fa-thumbs-down fa-5x" style="font-size: 150px;" aria-hidden="true"></i>
+              </div>
+              <br><div class="clearfix"></div><br>
+              <div class="col-md-offset-3 col-md-7 col-sm-offset-2 col-sm-9 col-xs-12">
+                <h2>Disculpa, no se encontraron tweets de "{{tipoBusqueda}}" para {{busqueda}}</h2>
+              </div>
+            {% else %}
+              <div class="x_title">
+                <h4>Aviso: En su búsqueda se incorporan resultados de medicinas equivalentes.</h4>
+              </div>
+              <div class="col-md-offset-3 col-md-7 col-sm-offset-2 col-sm-9 col-xs-12">
+                <br><div class="clearfix"></div><br>
+                <ul id="tweetScroll">
+                  {% for tweet in listaHtml %}
+                    <li>{{tweet|safe|escape}}</li>
+                  {% endfor %}
+                </ul>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    <br><div class="clearfix"></div><br>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+{{ block.super}}
+<!-- Chart.js -->
+<script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- gauge.js -->
+<script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- Skycons -->
+<script src="/static/vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="/static/vendors/Flot/jquery.flot.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="/static/vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="/static/vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+{% endblock javascripts %}
