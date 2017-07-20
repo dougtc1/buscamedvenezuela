@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 # Heroku database
 import os
 import psycopg2
-import urlparse
+from urllib.parse import urlparse
 
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
