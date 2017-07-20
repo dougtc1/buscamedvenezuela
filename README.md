@@ -1,4 +1,9 @@
 # buscamedvenezuela
+Mini-proyecto abril-julio 2017
+
+Elaborado por:
+Antonio Cipagauta, carnet: 05-38040
+Douglas Torres, carnet: 11-11027
 
 Nota: Este repo existe para el deploy en heroku, está configurado para tal fin y por funciona correctamente de forma local. Todos los PATHS aquí mencionados son relativos a la estructura de este repositorio.
 
